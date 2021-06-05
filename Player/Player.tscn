@@ -26,4 +26,10 @@ position = Vector2( 34.25, 0 )
 [node name="GunTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="timeout" from="GunTimer" to="." method="_on_GunTimer_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]

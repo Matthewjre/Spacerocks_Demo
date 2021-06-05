@@ -1,6 +1,19 @@
 extends RigidBody2D
 
-signal shoot 
+signal shoot
+signal lives_changed
+signal dead
+
+var lives = 0 setget set_lives
+
+func set_lives(value):
+	lives = value
+	emit_signal("lives_changed", lives)
+
+func start():
+	$Sprite.show()
+	self.lives = 3
+	change_state(ALIVE)
 
 export (PackedScene) var Bullet 
 export (float) var fire_rate
@@ -25,13 +38,20 @@ func _ready():
 func change_state(new_state):
 	match new_state:
 		INIT:
-			$CollisionShape2D.disabled = true 
+			$CollisionShape2D.disabled = true
+			$Sprite.modulate.a = 0.5 
 		ALIVE:
 			$CollisionShape2D.disabled = false
+			$Sprite.modulate.a = 1.0
 		INVULNERABLE:
 			$CollisionShape2D.disabled = true
+			$Sprite.modulate.a = 0.5
+			$InvulnerabilityTimer.start()
 		DEAD:
 			$CollisionShape2D.disabled = true
+			$Sprite.hide()
+			linear_velocity = Vector2()
+			emit_signal("dead")
 	state = new_state
 
 func _process(delta):
@@ -75,3 +95,7 @@ func shoot():
 
 func _on_GunTimer_timeout():
 	can_shoot = true
+
+
+func _on_InvulnerabilityTimer_timeout():
+	change_state(ALIVE)
