@@ -23,7 +23,6 @@ texture = ExtResource( 3 )
 position = Vector2( 414.438, 249.017 )
 
 [node name="RockPath" type="Path2D" parent="."]
-position = Vector2( -561.143, -258.286 )
 curve = SubResource( 1 )
 
 [node name="RockSpawn" type="PathFollow2D" parent="RockPath"]
@@ -35,3 +34,4 @@ rotation = -0.00261095
 [node name="HUD" parent="." instance=ExtResource( 5 )]
 
 [connection signal="shoot" from="Player" to="." method="_on_Player_shoot"]
+[connection signal="start_game" from="HUD" to="." method="_on_HUD_start_game"]

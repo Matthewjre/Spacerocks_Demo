@@ -19,6 +19,16 @@ func new_game():
 	playing = true
 	new_level()
 
+func new_level():
+	level += 1
+	$HUD.show_message("Wave $s" % level)
+	for i in range(level):
+		spawn_rock(3)
+
+func _process(delta):
+	if playing and $Rocks.get_child_count() == 0:
+		new_level()
+
 func _on_Player_shoot(bullet, pos, dir):
 	var b = bullet.instance()
 	b.start(pos, dir)
@@ -53,3 +63,6 @@ func on_Rock_exploded(size, radius, pos, vel):
 		var newvel = dir * vel.length() * 1.1 
 		spawn_rock(size-1, newpos, newvel)
 
+
+func _on_HUD_start_game():
+	new_game()
