@@ -66,3 +66,8 @@ func on_Rock_exploded(size, radius, pos, vel):
 
 func _on_HUD_start_game():
 	new_game()
+
+
+func game_over():
+	playing = false
+	$HUD.game_over()

@@ -99,3 +99,12 @@ func _on_GunTimer_timeout():
 
 func _on_InvulnerabilityTimer_timeout():
 	change_state(ALIVE)
+
+
+func _on_Player_body_entered(body):
+	if body.is_in_group("rocks"):
+		self.lives -= 1
+		if lives <= 0:
+			change_state(DEAD)
+		else:
+			change_state(INVULNERABLE)
