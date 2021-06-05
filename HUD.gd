@@ -15,5 +15,18 @@ func update_score(value):
 	$MarginContainer/HBoxContainer/ScoreLabel.text = str(value)
 
 func update_lives(value):
-	for i in range(3)
+	for i in range(3):
 		lives_counter[i].visible = value > i
+
+func game_over():
+	show_message("Game Over")
+	yield($MessageTimer, "timeout")
+	$StartButton.show()
+
+func _on_StartButton_pressed():
+	$StartButton.hide()
+	emit_signal("start_game")
+
+func _on_MessageTimer_timeout():
+	$MessageLabel.hide()
+	$MessageLabel.text = ""
