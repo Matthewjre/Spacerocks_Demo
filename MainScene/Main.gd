@@ -3,6 +3,21 @@ extends Node
 export (PackedScene) var Rock
 var screensize = Vector2()
 
+var level = 0
+var score = 0
+var playing = false
+
+func new_game():
+	for rock in $Rocks.get_children():
+		rock.queue_free()
+	level = 0
+	score = 0
+	$HUD.update_score(score)
+	$Player.start()
+	$HUD.show_message("Get Ready!")
+	yield($HUD/MessageTimer, "timeout")
+	playing = true
+	new_level()
 
 func _on_Player_shoot(bullet, pos, dir):
 	var b = bullet.instance()
