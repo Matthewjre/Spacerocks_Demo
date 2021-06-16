@@ -55,6 +55,8 @@ func spawn_rock(size, pos=null, vel=null):
 	r.connect('exploded', self, "on_Rock_exploded")
 
 func on_Rock_exploded(size, radius, pos, vel):
+	score += size*10
+	$HUD.update_score(score)
 	if size <= 1:
 		return 
 	for offset in [-1, 1]:

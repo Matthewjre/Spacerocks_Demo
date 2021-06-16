@@ -90,6 +90,7 @@ func shoot():
 	if state == INVULNERABLE:
 		return 
 	emit_signal("shoot", Bullet, $Muzzle.global_position, rotation)
+	$AudioStreamPlayer.play()
 	can_shoot = false
 	$GunTimer.start()
 
